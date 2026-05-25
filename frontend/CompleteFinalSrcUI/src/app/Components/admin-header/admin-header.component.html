@@ -1,0 +1,17 @@
+<nav class = "navbar">
+    <ul class="navlinks2">
+        <a routerLink="/adminDashboard"> Mc Queen Parcel Services</a>    
+    </ul>
+    <ul class = "navlinks">
+        <li><a routerLink="/adminDashboard">Home</a></li>
+        <li><a routerLink="/officer">Tracking</a></li>
+        <li><a routerLink="/officerBookingService">Booking</a>
+        <li><a routerLink="/schedule-pickup">Pick up Scheduling</a></li>
+        <li><a routerLink="/updatestatus">Delivery Status</a></li>
+        <li><a routerLink="/previousOfficerBooking">Previous Booking</a></li>
+    </ul>
+    <div class="userInfo">
+        <span>{{obj.userId}}</span>
+        <a routerLink="/loginPage">Log Out</a>
+    </div>
+</nav>

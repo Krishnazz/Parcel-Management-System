@@ -1,0 +1,42 @@
+<app-admin-header></app-admin-header>
+
+<body>
+  <div class="container">
+    <h2>Update Parcel Status</h2>
+    <form (ngSubmit)="onSubmit()" #statusForm="ngForm">
+      
+      <!-- Parcel ID Input -->
+      <div class="form-group">
+        <input
+          class = "field"
+          type="number"
+          [(ngModel)]="parcelId"
+          name="parcelId"
+          required
+          placeholder="Enter Parcel ID"
+        />
+      </div>
+
+      <!-- Status Radio Buttons -->
+      <div class="status-group">
+        <label *ngFor="let status of statusOptions" class="status-option">
+          <input
+            type="radio"
+            name="status"
+            [value]="status"
+            [(ngModel)]="selectedStatus"
+          />
+          {{ status }}
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit">Update</button>
+    </form>
+
+    <!-- Response Message -->
+    <div *ngIf="responseMessage" class="alert alert-info mt-3">
+      {{ responseMessage }}
+    </div>
+  </div>
+</body>

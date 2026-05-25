@@ -1,0 +1,35 @@
+
+
+<body>
+
+  <div class="container">
+
+  
+    <h2>My Parcel Status</h2>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+    
+    <table *ngIf="trackingList.length > 0" class="result-table">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Receiver Name</th>
+          <th>Receiver Address</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parcel of trackingList">
+          <td>{{ parcel.bookingId }}</td>
+          <td>{{ parcel.receiverName }}</td>
+          <td>{{ parcel.receiverAddress }}</td>
+          <td>{{ parcel.dateOfBooking }}</td>
+          <td>{{ parcel.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    </div>
+
+</body>

@@ -1,0 +1,107 @@
+
+.container {
+    background-color: #f0ece4;
+    padding: 30px;
+    width: 80%; /* Reduce width for better centering */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    margin: auto; 
+    }
+ 
+ 
+ h1 {
+    font-size: 32px;
+    color: #333;
+    margin-bottom: px;
+    margin-top: 100px;
+ }
+ 
+ 
+ 
+ .left-section, .right-section {
+    width: 48%;
+ }
+ 
+ input, select, textarea {
+    width: 90%;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+ }
+ 
+ /* Mobile Number Section - Country Code and Input in the Same Line */
+ .mobile-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+   
+ }
+ 
+ #country-id {
+    width: 30%;
+    padding: 8px;
+    font-size: 12px;
+ }
+ 
+ #mobile {
+    width: 58%;
+    padding: 8px;
+    font-size: 16px;
+ }
+ 
+ .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+ }
+ 
+ .reset-btn, .submit-btn {
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 48%;
+ }
+ 
+ .reset-btn {
+    background-color: rgb(39, 38, 38);
+ }
+ .reset-btn:hover{
+    background-color: rgb(29, 28, 28);
+ }
+ 
+ .submit-btn {
+    background-color: #8b6f47;
+ }
+ .submit-btn:hover{
+    background: #705a36;
+ }
+ 
+ .error {
+    color: red;
+    font-size: 12px;
+ }
+ #acknowledgment {
+     margin-top: 50px; /* Adds space from the top */
+     text-align: left;
+     
+     width:500px;
+     height: auto;
+ }
+ #acknowledgment button{
+     background-color: green;
+     padding: 10px;
+     color: white;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ select{
+    width: 58%;
+    padding: 8px;
+    font-size: 16px;
+ }

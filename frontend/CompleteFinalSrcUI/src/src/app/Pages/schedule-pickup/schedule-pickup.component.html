@@ -1,0 +1,45 @@
+
+
+<body>
+
+  <div class="container">
+
+    <h2>Schedule Pickup for Parcel</h2>
+  
+  <input type="number" [(ngModel)]="bookingId" placeholder="Enter Booking ID" />
+  <button (click)="searchParcel()">Search</button>
+  
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div class="table">
+    <div *ngIf="selectedParcel">
+      <p><strong>Booking ID:</strong> {{ selectedParcel.bookingId }}</p>
+      <p><strong>Customer:</strong> {{ selectedParcel.fullName }} | {{ selectedParcel.address }}</p>
+      <p><strong>Receiver:</strong> {{ selectedParcel.receiverName }} | {{ selectedParcel.receiverAddress }}</p>
+      <p><strong>Date:</strong> {{ selectedParcel.dateOfBooking }}</p>
+      <p><strong>Status:</strong> {{ selectedParcel.status }}</p>
+      <p><strong>Current Pickup:</strong> {{ selectedParcel.pickupTime }}</p>
+      <p><strong>Current Drop:</strong> {{ selectedParcel.dropOffTime }}</p>
+    
+      
+    
+      <label>New Pickup Time:</label>
+      <input type="time" [(ngModel)]="pickupTime" placeholder="e.g. 10:30 AM" />
+    
+      <label>New Drop-Off Time:</label>
+      <input type="time" [(ngModel)]="dropOffTime" placeholder="e.g. 05:00 PM" />
+    
+      <button  (click)="updateTimes()">Update Times</button>
+    </div>
+    
+    <p *ngIf="message" class="status">{{ message }}</p>
+  
+  </div>
+  
+  
+  
+  
+  </div>
+
+
+</body>

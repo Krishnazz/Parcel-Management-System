@@ -1,0 +1,42 @@
+<app-user-header/>
+<main>
+  <h2>Booking History</h2>
+    <table id="bookingTable">
+      <thead>
+        <tr>
+          <th>Customer ID</th>
+          <th>Booking ID</th>
+          <th>Booking Date</th>
+          <th>Receiver Name</th>
+          <th>Delivered Address</th>
+          <th>Amount Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (booking of bookings | slice: (currentPage-1)*rowsPerPage : currentPage*rowsPerPage; track booking.bookingId) {
+          <tr>
+            <td>{{ booking.customerId }}</td>
+            <td>{{ booking.bookingId }}</td>
+            <td>{{ booking.date | date }}</td>
+            <td>{{ booking.receiver }}</td>
+            <td>{{ booking.address }}</td>
+            <td>
+              <span [class.paid]="booking.status === 'Paid'" 
+                    [class.unpaid]="booking.status === 'Unpaid'">
+                {{ booking.status }}
+              </span>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="6">No booking history found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button id="prevBtn" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span class="page-info">Page {{ currentPage }} of {{ totalPages() }}</span>
+      <button id="nextBtn" (click)="nextPage()" [disabled]="(currentPage * rowsPerPage) >= bookings.length">Next</button>
+    </div>
+  </main>

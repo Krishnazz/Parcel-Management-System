@@ -1,0 +1,162 @@
+<div>
+    <app-admin-header></app-admin-header>
+   
+    <div class="container">
+        <!-- Hide the booking form and title when showing invoice -->
+        <div *ngIf="currentStep !== 5">
+            <h2>Book a Service</h2>
+            <form id="booking_form">
+                <div *ngIf="currentStep === 1" class="form-step active">
+    
+                    <h3>Receiver Information</h3>
+                    <label>Name:</label>
+                    <input type="text" [(ngModel)]="receiverInfo.name" name="receiverName" required>
+                    <div class="error-message" *ngIf="showErrors && !receiverInfo.name">Receiver name is required.</div>
+                    <label>Address:</label>
+                    <input type="text" [(ngModel)]="receiverInfo.address" name="receiverAddress" required>
+                    <div class="error-message" *ngIf="showErrors && !receiverInfo.address">Receiver address is required.</div>
+                    <label>PinCode:</label>
+                    <input type="text" [(ngModel)]="receiverInfo.pin" name="receiverPin" required>
+                    <div class="error-message" *ngIf="showErrors && isReceiverPinInvalid">
+                        Receiver pin must be 6 digits.
+                    </div>
+                    <label>Contact:</label>
+                    <input type="text" [(ngModel)]="receiverInfo.contact" name="receiverContact" required>
+                    <div class="error-message" *ngIf="showErrors && isReceiverContactInvalid">
+                        Receiver contact must be 10 digits.
+                    </div>
+                    <button type="button" (click)="nextStep(2)">Proceed</button>
+                </div>
+                
+                <div *ngIf="currentStep === 2" class="form-step active">
+                    <h3>Parcel & Shipping Details</h3>
+                    <label>Size:</label>
+                    <select [(ngModel)]="parcelDetails.size" name="parcelSize" required>
+                        <option value="small">Small</option>
+                        <option value="medium">Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.size">Parcel size is required.</div>
+                    <label>Weight:</label>
+                    <select [(ngModel)]="parcelDetails.weight" name="parcelWeight" required>
+                        <option value="<500g">Less than 500g</option>
+                        <option value="500g-1kg">500g to 1kg</option>
+                        <option value=">1kg">Greater than 1kg</option>
+                    </select>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.weight">Parcel weight is required.</div>
+                    <label>Contents Description:</label>
+                    <textarea [(ngModel)]="parcelDetails.contentDescription" name="contentDescription" required></textarea>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.contentDescription">Description is required.</div>
+                    <label>Delivery Speed:</label>
+                    <select [(ngModel)]="parcelDetails.deliverySpeed" name="deliverySpeed" required>
+                        <option value="standard">Standard</option>
+                        <option value="express">Express</option>
+                    </select>
+                    <label>Packaging:</label>
+                    <select [(ngModel)]="parcelDetails.packaging" name="packaging" required>
+                        <option value="Standard">Standard Packaging</option>
+                        <option value="Custom">Custom Packaging</option>
+                        <option value="eco">Eco-Friendly Packaging</option>
+                        <option value="fragile">Fragile Item Handling</option>
+                    </select>
+                    <!-- Pickup Date -->
+                    <label>Pickup Date:</label>
+                    <input type="date" [(ngModel)]="parcelDetails.pickupDate" name="pickupDate" [min]="today" required>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.pickupDate">Pickup date is required.</div>
+                    <div class="error-message" *ngIf="showErrors && dateTimeErrors.pickupPast">Pickup date/time cannot be in the past.</div>
+                    <!-- Pickup Time -->
+                    <label>Pickup Time:</label>
+                    <input type="time" [(ngModel)]="parcelDetails.pickupTime" name="pickupTime" required>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.pickupTime">Pickup time is required.</div>
+                    <!-- Drop Date -->
+                    <label>Drop Date:</label>
+                    <input type="date" [(ngModel)]="parcelDetails.dropDate" name="dropDate" [min]="parcelDetails.pickupDate || today" required>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.dropDate">Drop date is required.</div>
+                    <div class="error-message" *ngIf="showErrors && dateTimeErrors.dropBeforePickup">Drop date/time must be after pickup date/time.</div>
+                    <!-- Drop Time -->
+                    <label>Drop Time:</label>
+                    <input type="time" [(ngModel)]="parcelDetails.dropTime" name="dropTime" required>
+                    <div class="error-message" *ngIf="showErrors && !parcelDetails.dropTime">Drop time is required.</div>
+                    <button type="button" (click)="prevStep(1)">Back</button> &nbsp;
+                    <button type="button" (click)="nextStep(3)">Proceed</button>
+                </div>
+                
+                <div *ngIf="currentStep === 3" class="form-step active">
+                    <h3>Payment</h3>
+                    <label>Total Cost:</label>
+                    <input type="text" [value]="'Rs ' + totalCost" readonly>
+                    <label>Mode Of Payment:</label>
+                    <select [(ngModel)]="payment.mode" name="paymentMode">
+                      <option value="Debit Card">Debit Card</option>
+                      <option value="Credit Card">Credit Card</option>
+                    </select>
+                    <button type="button" (click)="nextStep()">Pay Now</button>&nbsp;
+                    <button type="button" (click)="prevStep()">Back</button>
+                </div>
+                
+                <form *ngIf="currentStep === 4" class="form-step active">
+                    <h3>Enter Card Details</h3>
+                    <label>Card Number:</label>
+                    <input type="text" [(ngModel)]="payment.cardNumber" name="cardNumber" maxlength="16">
+                    <small class="error-message">{{errors.cardNumber}}</small>
+                    <label>Card Holder Name:</label>
+                    <input type="text" [(ngModel)]="payment.cardHolder" name="cardHolder">
+                    <small class="error-message">{{errors.cardHolder}}</small>
+                    <label>Expiry Date (MM/YY):</label>
+                    <input type="text" [(ngModel)]="payment.expiry" name="expiry">
+                    <small class="error-message">{{errors.expiry}}</small>
+                    <label>CVV:</label>
+                    <input type="text" [(ngModel)]="payment.cvv" name="cvv" maxlength="3">
+                    <small class="error-message">{{errors.cvv}}</small>
+                    <button type="button" (click)="nextStep()">Make Payment</button>&nbsp;
+                    <button type="button" (click)="prevStep()">Back</button>
+                </form>
+            </form>
+        </div>
+    
+        <!-- Invoice Section -->
+        <div *ngIf="currentStep === 5" class="form-step active" style="text-align:center;">
+            <h2 style="color:green;">Payment Successful!</h2>
+            <p>Your Booking ID: <strong>{{bookingId}}</strong></p>
+            <div *ngIf="invoice">
+                <h3 style="margin-top:30px;">Invoice Details</h3>
+                <table style="
+                    margin: 0 auto;
+                    border-collapse: separate;
+                    border-spacing: 0;
+                    min-width: 400px;
+                    box-shadow: 0 4px 24px #b2bec3;
+                    background: #f8fafc;
+                    border-radius: 12px;
+                    overflow: hidden;
+                ">
+                    <tr>
+                        <th style="text-align:left; padding:12px 16px; background:#0984e3; color:#fff; font-size:1.1em;">Field</th>
+                        <th style="text-align:left; padding:12px 16px; background:#0984e3; color:#fff; font-size:1.1em;">Value</th>
+                    </tr>
+                    <tr *ngFor="let row of [
+                        {label:'Receiver Name', value:invoice.receiverName},
+                        {label:'Receiver Address', value:invoice.receiverAddress},
+                        {label:'Receiver Pin', value:invoice.receiverPin},
+                        {label:'Receiver Mobile', value:invoice.receiverMobile},
+                        {label:'Parcel Weight', value:invoice.parcelWeight},
+                        {label:'Parcel Content', value:invoice.parcelContent},
+                        {label:'Delivery Type', value:invoice.deliveryType},
+                        {label:'Packing Preference', value:invoice.parPackingPreference},
+                        {label:'Pickup Date', value:invoice.parPickupDate},
+                        {label:'Dropoff Date', value:invoice.parDropoffDate},
+                        {label:'Pickup Time', value:invoice.parPickupTime},
+                        {label:'Dropoff Time', value:invoice.parDropupTime},
+                        {label:'Service Cost', value:invoice.serviceCost},
+                        {label:'Payment Time', value:invoice.paymentTime},
+                        {label:'Status', value:invoice.parcelStatus}
+                    ]; let i = index"
+                    [ngStyle]="{'background': i % 2 === 0 ? '#dff6fd' : '#fff'}">
+                        <td style="padding:10px 16px; font-weight:500;">{{row.label}}</td>
+                        <td style="padding:10px 16px;">{{row.value}}</td>
+                    </tr>
+                </table>
+            </div>
+            <button type="button" (click)="reset()" style="margin-top:24px;">Book Another Parcel</button>
+        </div>
+    </div>

@@ -1,0 +1,40 @@
+<body>
+<div class="container">
+  <h2>Parcel Tracking - Officer View</h2>
+
+  <!-- Input Field -->
+  <div class="input-group">
+    <input type="number" [(ngModel)]="userId" placeholder="Enter Booking ID" />
+    <button (click)="fetchParcelsByUser()">Fetch Parcels</button>
+  </div>
+
+  <!-- Error Display -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Table for Results -->
+  <div *ngIf="trackingList.length > 0">
+    <table class="result-table">
+      <thead>
+        <tr>
+          <th>Booking ID</th>
+          <th>Receiver Name</th>
+          <th>Receiver Address</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through trackingList and display rows -->
+        <tr *ngFor="let parcel of trackingList">
+          <td>{{ parcel.bookingId }}</td>
+            <td>{{ parcel.receiverName }}</td>
+            <td>{{ parcel.receiverAddress }}</td>
+            <td>{{ parcel.dateOfBooking | date:'short' }}</td>
+            <td>{{ parcel.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+</div>
+</body>

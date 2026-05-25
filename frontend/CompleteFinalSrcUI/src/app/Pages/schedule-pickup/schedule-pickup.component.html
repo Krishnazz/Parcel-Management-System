@@ -1,0 +1,55 @@
+<app-admin-header></app-admin-header>
+<body>
+  <div class="container">
+    <h3>Schedule Pickup and Drop-off</h3>
+  
+    <div>
+      <input type="number" [(ngModel)]="bookingId" placeholder="Enter Booking ID" />
+      <button (click)="searchParcel()">Search</button>
+    </div>
+  
+    <div *ngIf="error" class="error">{{ error }}</div>
+  
+    <div *ngIf="selectedParcel">
+      <h4>Parcel Info</h4>
+      <p><strong>Customer:</strong> {{ selectedParcel.fullName }}</p>
+      <p><strong>Address:</strong> {{ selectedParcel.address }}</p>
+      <p><strong>Receiver:</strong> {{ selectedParcel.receiverName }}</p>
+      <p><strong>Receiver Address:</strong> {{ selectedParcel.receiverAddress }}</p>
+      <p><strong>Date of Booking:</strong> {{ selectedParcel.dateOfBooking }}</p>
+      <p><strong>Status:</strong> {{ selectedParcel.status }}</p>
+  
+     
+      <div>
+        <label>Pickup Time:</label>
+        <input type="time" [(ngModel)]="pickupTime" placeholder="Pickup Time" />
+      </div>
+  
+      <div>
+        <label>Drop-off Time:</label>
+        <input type="time" [(ngModel)]="dropOffTime" placeholder="Drop-off Time" />
+      </div>
+  
+     
+      <div>
+        <button (click)="updateTimes()">Update</button>
+      </div>
+  
+    
+      <div *ngIf="updated">
+        <div>
+          <label>Updated Pickup Time:</label>
+          <span>{{ selectedParcel.pickupTime ? selectedParcel.pickupTime : 'Not set' }}</span>
+        </div>
+  
+        <div>
+          <label>Updated Drop-off Time:</label>
+          <span>{{ selectedParcel.dropOffTime ? selectedParcel.dropOffTime : 'Not set' }}</span>
+        </div>
+      </div>
+  
+      
+      <div *ngIf="message" class="message">{{ message }}</div>
+    </div>
+  </div>
+</body>

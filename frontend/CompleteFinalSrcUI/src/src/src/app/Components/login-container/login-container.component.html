@@ -1,0 +1,10 @@
+<form [formGroup]="loginValidate" (ngSubmit)="onSubmit()"style="background-color:#f0ece4;">
+    <h1>Login</h1>
+    <input type="text" formControlName = "userName" placeholder="Username" />
+    <input type="password" formControlName="password" placeholder="Password" />
+    <button type = "submit" [disabled]="!loginValidate.valid">Login</button>
+    <p>
+        Don't have an account?
+        <a routerLink="/registerUser">Create new!</a>
+    </p>
+</form>

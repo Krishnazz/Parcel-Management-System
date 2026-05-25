@@ -1,0 +1,108 @@
+.container{
+    width: 50%;
+    max-width: 1000px;
+    margin: 15px;
+    padding: 5px;
+    border-radius: 10px;
+}
+.cardSectionCustomer{
+        
+    display: inline-grid;
+    grid-template-columns: auto auto auto;
+    row-gap: 50px;
+    height: 300px;
+    max-width: 1000px;
+    margin-left: 50px;
+    margin-right: 50px;
+    perspective: 1000px
+}
+.cardSectionOfficer{
+        
+    display: inline-grid;
+    grid-template-columns: auto auto auto auto;
+    row-gap: 70px;
+    height: 300px;
+    max-width: 1000px;
+    margin-left: 50px;
+    margin-right: 25px;
+    perspective: 1000px
+}
+.card {
+    background-color: #f0ece4;
+    width: 300px;
+    height: 300px;
+    margin-left: 100px;
+    margin-right: 100px;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    border-radius: 10px;
+  }
+  .cardOfficer{
+    background-color: #f0ece4;
+    width: 200px;
+    height: 300px;
+    margin-left: 90px;
+    margin-right: 60px;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    border-radius: 10px;
+  }
+.cardsInner{
+    
+    position: relative;
+    text-wrap: wrap;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.cardsInnerOfficer{
+    
+    position: relative;
+    text-wrap: wrap;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    max-width: 200px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+.card:hover .cardsInner{
+    transform: rotateY(180deg);
+}
+.cardOfficer:hover .cardsInnerOfficer{
+    transform: rotateY(180deg);
+}
+.cardsBack{
+        border-radius: 10px;
+        background-color: #8b6f47;
+        height: 300;
+        align-items: center;
+        text-align:justify;
+        font-size:larger;
+        color: white;
+        padding: 25px;
+        transform: rotateY(180deg);
+}
+.cardsFront, .cardsBack{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+
+}
+.cardsBack a{
+    text-decoration: none;
+    background-color: #272420;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    padding:10px 12px;
+}
